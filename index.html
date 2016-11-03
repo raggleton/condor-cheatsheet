@@ -1,0 +1,79 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>HTCondor cheat-sheet</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <style>
+      .table {
+        /*border-radius: 5px;*/
+        /*width: 50%;*/
+        /*margin: 0pt auto;*/
+        /*float: none;*/
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+
+      <h1>HTCondor commands cheat-sheet</h1>
+      <h2>For version: <span>current</span></h2>
+      <table class="table table-hover" id="mainTable">
+      <thead>
+        <tr>
+          <th>Command</th>
+          <th>Brief</th>
+          <!-- <th>Usage</th> -->
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+      </tbody>
+      </table>
+    </div>
+
+  <script type="text/javascript">
+  $.getJSON("dump.json", function(json) {
+    var items = [];
+    $.each( json, function(i, entry) {
+      var cols = ["<td><a href=\""+entry.url+"\">"+entry.name+"</a></td>"];
+
+      var briefStr = entry.brief;
+      if (briefStr === null) { briefStr = "<i>N/A</i>"; }
+      cols.push("<td>"+briefStr+"</td>");
+
+      // var usageStrs = [];
+      // if (entry.synopsis != null) {
+      //   $.each( entry.synopsis, function(j, use) {
+      //     var start = "";
+      //     if (j > 0) {start = "<br>";}
+      //     usageStrs.push(start + use.replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+      //   } );
+      // }
+      // cols.push("<td>"+usageStrs.join("")+"</td>");
+
+      items.push("<tr>"+cols.join("")+"</tr>");
+    });
+    var tableBody = document.getElementById("tableBody");
+    tableBody.innerHTML = items.join(" ");
+  });
+
+  </script>
+
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  </body>
+
+</html>
